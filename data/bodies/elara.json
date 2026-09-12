@@ -2,6 +2,7 @@
  "aliases": [],
  "classification": "irregular-moon",
  "confidence_score": 0.9,
+ "created_at": "2026-09-12T00:00:00Z",
  "designations": [
   {
    "designation": "Jupiter VII",
@@ -97,5 +98,7 @@
   "radius": 0.1,
   "rings": {}
  },
- "system": "Jovian System"
+ "superseded_by": null,
+ "system": "Jovian System",
+ "updated_at": "2026-09-12T00:00:00Z"
 }

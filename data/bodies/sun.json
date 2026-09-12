@@ -4,6 +4,7 @@
  ],
  "classification": "star",
  "confidence_score": 1.0,
+ "created_at": "2026-09-12T00:00:00Z",
  "designations": [],
  "discovery": {},
  "id": "sun",
@@ -58,5 +59,7 @@
   "radius": 5.0,
   "rings": {}
  },
- "system": "Solar System"
+ "superseded_by": null,
+ "system": "Solar System",
+ "updated_at": "2026-09-12T00:00:00Z"
 }

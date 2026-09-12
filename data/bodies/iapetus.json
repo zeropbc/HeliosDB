@@ -2,6 +2,7 @@
  "aliases": [],
  "classification": "regular-moon",
  "confidence_score": 0.9,
+ "created_at": "2026-09-12T00:00:00Z",
  "designations": [
   {
    "designation": "Saturn VIII",
@@ -125,5 +126,7 @@
   "radius": 0.2,
   "rings": {}
  },
- "system": "Saturnian System"
+ "superseded_by": null,
+ "system": "Saturnian System",
+ "updated_at": "2026-09-12T00:00:00Z"
 }

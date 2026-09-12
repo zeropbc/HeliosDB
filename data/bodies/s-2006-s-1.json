@@ -2,6 +2,7 @@
  "aliases": [],
  "classification": "irregular-moon",
  "confidence_score": 1.0,
+ "created_at": "2026-09-12T00:00:00Z",
  "designations": [
   {
    "designation": "S/2006 S 1",
@@ -63,5 +64,7 @@
   "radius": null,
   "rings": {}
  },
- "system": "Saturnian System"
+ "superseded_by": null,
+ "system": "Saturnian System",
+ "updated_at": "2026-09-12T00:00:00Z"
 }

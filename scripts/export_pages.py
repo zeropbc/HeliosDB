@@ -144,6 +144,7 @@ def body_page(d, children, by_id, helios_url):
     sources = json.loads(d["sources_json"] or "[]")
     conflicts = json.loads(d["conflicts_json"] or "[]")
     rings = json.loads(d["rings_json"] or "{}")
+    rates = json.loads(d["rates_json"] or "{}")
 
     parent_link = (f'<a href="{by_id[d["parent_id"]]["id"]}.html">{esc(by_id[d["parent_id"]]["name"])}</a>'
                    if d.get("parent_id") and d["parent_id"] in by_id else "—")
@@ -164,6 +165,20 @@ def body_page(d, children, by_id, helios_url):
     src_rows = "".join(
         f"<div>· {esc(s['source_name'])} <span class=\"dim\">({esc(s['retrieved_date'])}): "
         f"{esc(', '.join(s.get('fields_provided', [])))}</span></div>" for s in sources)
+    rates_rows = [(k, fmt(v), "per century") for k, v in sorted(rates.items())]
+    render_rows = []
+    if d.get("render_color_hex"):
+        render_rows.append(("Color hex", esc(d["render_color_hex"]), None))
+    if d.get("render_radius") is not None:
+        render_rows.append(("Render radius", fmt(d["render_radius"]), None))
+    if rings.get("rings"):
+        render_rows.append(("Rings", fmt_json_cell(d["rings_json"]), None))
+    record_rows = [("Created (snapshot)", esc(d["created_at"]), None),
+                   ("Updated (snapshot)", esc(d["updated_at"]), None)]
+    if d.get("superseded_by") and d["superseded_by"] in by_id:
+        sb = by_id[d["superseded_by"]]
+        record_rows.append(("Superseded by",
+                            f'<a href="{esc(sb["id"])}.html">{esc(sb["name"])}</a>', None))
     color = d.get("render_color_hex")
     swatch = (f'<span class="swatch" style="background:{esc(color)}"></span>' if color else "")
 
@@ -193,8 +208,14 @@ def body_page(d, children, by_id, helios_url):
   <h2>Orbital</h2>
   {table(orb)}
 
+  <h2>Secular rates</h2>
+  {table(rates_rows)}
+
   <h2>Discovery</h2>
   {table(disc)}
+
+  <h2>Render hints</h2>
+  {table(render_rows)}
 
   <h2>System</h2>
   <p>Orbits: {parent_link}</p>
@@ -205,6 +226,9 @@ def body_page(d, children, by_id, helios_url):
   {src_rows or "<p class=\"dim\">—</p>"}
   <h3>Conflicts ({len(conflicts)})</h3>
   {conf_rows or "<p class=\"dim\">none — sources agree</p>"}
+
+  <h2>Record</h2>
+  {table(record_rows)}
 </main>
 {footer()}
 </body>
@@ -259,7 +283,7 @@ def index_page(groups, alpha, total, helios_url):
 </header>
 <main class="wrap">
   <h1>HeliosDB</h1>
-  <p class="dim">Canonical astronomical database · <b>{total}</b> bodies · static snapshot, no JavaScript required</p>
+  <p class="dim">Canonical astronomical database · <b>{total}</b> bodies</p>
   <div id="search-mount"></div>
   <p class="ticker">{stats}</p>
   {sections}

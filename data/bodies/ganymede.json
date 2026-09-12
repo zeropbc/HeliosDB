@@ -2,6 +2,7 @@
  "aliases": [],
  "classification": "regular-moon",
  "confidence_score": 0.95,
+ "created_at": "2026-09-12T00:00:00Z",
  "designations": [
   {
    "designation": "Jupiter III",
@@ -110,5 +111,7 @@
   "radius": 0.28,
   "rings": {}
  },
- "system": "Jovian System"
+ "superseded_by": null,
+ "system": "Jovian System",
+ "updated_at": "2026-09-12T00:00:00Z"
 }

@@ -2,6 +2,7 @@
  "aliases": [],
  "classification": "regular-moon",
  "confidence_score": 1.0,
+ "created_at": "2026-09-12T00:00:00Z",
  "designations": [],
  "discovery": {},
  "id": "charon",
@@ -61,5 +62,7 @@
   "radius": 0.24,
   "rings": {}
  },
- "system": "Plutonian System"
+ "superseded_by": null,
+ "system": "Plutonian System",
+ "updated_at": "2026-09-12T00:00:00Z"
 }

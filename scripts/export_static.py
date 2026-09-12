@@ -71,6 +71,9 @@ def main():
                        "radius": d["render_radius"],
                        "rings": json.loads(d["rings_json"])},
             "confidence_score": d["confidence_score"],
+            "superseded_by": d["superseded_by"],
+            "created_at": d["created_at"],
+            "updated_at": d["updated_at"],
         }
         (BODIES_DIR / f"{d['id']}.json").write_text(dump(body) + "\n")
     (OUT_DIR / "index.json").write_text(dump(index) + "\n")
