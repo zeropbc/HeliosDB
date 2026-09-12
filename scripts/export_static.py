@@ -46,8 +46,10 @@ def main():
     BODIES_DIR.mkdir(parents=True, exist_ok=True)
 
     index = []
+    written = set()
     for r in rows:
         d = dict(r)
+        written.add(d["id"])
         index.append({"id": d["id"], "name": d["name"],
                       "aliases": json.loads(d["aliases_json"]),
                       "classification": d["classification"],
@@ -72,7 +74,12 @@ def main():
         }
         (BODIES_DIR / f"{d['id']}.json").write_text(dump(body) + "\n")
     (OUT_DIR / "index.json").write_text(dump(index) + "\n")
-    print(f"Exported {len(index)} bodies → {OUT_DIR}")
+    # sweep stale files (renames/deletes must not leave ghosts behind)
+    stale = [p for p in BODIES_DIR.glob("*.json") if p.stem not in written]
+    for p in stale:
+        p.unlink()
+    print(f"Exported {len(index)} bodies → {OUT_DIR}"
+          + (f" (removed {len(stale)} stale)" if stale else ""))
     db.close()
 
 
