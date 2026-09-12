@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HeliosDB — Canonical Astronomical Database</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <h1>HeliosDB</h1>
+    <p class="tagline">Canonical astronomical database · static snapshot · zero-bloat</p>
+  </div>
+  <div class="top-actions">
+    <button id="api-btn" type="button">REST API Docs</button>
+  </div>
+</header>
+
+<section class="controls">
+  <input id="search" type="search" placeholder="Search names, designations, discoverers…" autocomplete="off">
+  <div class="chips" role="tablist">
+    <button data-filter="all" class="chip active" type="button">All</button>
+    <button data-filter="planets" class="chip" type="button">Planets</button>
+    <button data-filter="moons" class="chip" type="button">Moons</button>
+    <button data-filter="dwarfs" class="chip" type="button">Dwarf Planets</button>
+    <button data-filter="tnos" class="chip" type="button">TNOs &amp; Centaurs</button>
+  </div>
+  <div id="stats" class="ticker">loading…</div>
+</section>
+
+<main id="grid" class="grid"></main>
+
+<aside id="drawer" class="drawer" aria-hidden="true">
+  <div class="drawer-head">
+    <h2 id="drawer-title">—</h2>
+    <button id="drawer-close" type="button" aria-label="Close">✕</button>
+  </div>
+  <div class="drawer-actions">
+    <a id="btn-helios" class="btn" href="#" target="_blank" rel="noopener">View in Helios Engine</a>
+    <button id="btn-json" class="btn" type="button">Copy JSON</button>
+    <button id="btn-url" class="btn" type="button">Copy static URL</button>
+  </div>
+  <div id="drawer-body"></div>
+</aside>
+
+<div id="api-modal" class="modal" aria-hidden="true">
+  <div class="modal-box">
+    <div class="drawer-head">
+      <h2>Data access</h2>
+      <button id="api-close" type="button" aria-label="Close">✕</button>
+    </div>
+    <p>There is <strong>no live API in production</strong> — HeliosDB ships as static JSON on
+    GitHub Pages. Consume it directly:</p>
+    <pre><code>GET data/index.json              # [{id, name, aliases, classification, parent_id}]
+GET data/bodies/&lt;id&gt;.json       # full canonical record</code></pre>
+    <p>Local dev server (<code>./server.sh</code>, dev only) mirrors this shape:</p>
+    <pre><code>GET /api/v1/bodies?q=titan&amp;class=regular-moon&amp;parent=saturn&amp;sort=radius_km&amp;limit=50&amp;offset=0
+GET /api/v1/bodies/&lt;id&gt;
+GET /api/v1/systems/&lt;parent_id&gt;
+GET /api/v1/export/helios
+GET /api/v1/stats</code></pre>
+    <p>IDs are stable slugs (<code>?focus=&lt;id&gt;</code> deep-links keep working);
+    renamed bodies keep old designations in <code>designations</code>.</p>
+  </div>
+</div>
+
+<footer class="foot">
+  <span>HeliosDB static snapshot · sources cited per record · <code>?focus=&lt;id&gt;</code> deep-links</span>
+</footer>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>

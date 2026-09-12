@@ -1,0 +1,16 @@
+{
+  "overrides": [
+    {
+      "id": "himalia",
+      "field": "classification",
+      "value": "irregular-moon",
+      "reason": "Himalia is the eponym of the prograde Himalia irregular-satellite group (a~11.4M km, e~0.16); the automated inclination/eccentricity rule under-classifies outer prograde irregulars with incl<50."
+    },
+    {
+      "id": "elara",
+      "field": "classification",
+      "value": "irregular-moon",
+      "reason": "Elara is a prograde irregular satellite of the Himalia group; same automated-rule correction as Himalia."
+    }
+  ]
+}

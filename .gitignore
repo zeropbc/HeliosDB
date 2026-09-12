@@ -1,0 +1,7 @@
+# ---> generated, local-only
+data/helios.db
+data/*.db
+data/*.db-*
+public/data/
+__pycache__/
+*.pyc
