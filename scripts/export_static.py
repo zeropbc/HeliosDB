@@ -14,8 +14,8 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).parent.parent
-DB_PATH = ROOT / "data" / "helios.db"
-OUT_DIR = ROOT / "public" / "data"
+DB_PATH = ROOT / "db" / "helios.db"
+OUT_DIR = ROOT / "data"
 BODIES_DIR = OUT_DIR / "bodies"
 
 PHYSICAL = ["radius_km", "radius_uncertainty_km", "equatorial_radius_km",

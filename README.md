@@ -2,22 +2,26 @@
 
 Unified, searchable astronomical database: orbital mechanics, physical properties,
 and discovery metadata for solar-system bodies. Canonical SQLite store with FTS5,
-a local-only dev API, static JSON + static HTML exports that deploy to GitHub
-Pages with no server and no JavaScript required.
+a local-only dev API, static JSON + static HTML exports. Deploys to GitHub Pages
+(classic branch deploy, no Actions, no JavaScript required).
 
-## Architecture
+## Layout
+
+The static site lives at the **repo root** (`index.html`, `bodies/`, `data/`,
+`styles.css`, `search.js`, `assets/`, `fonts/`) so classic Pages serves it
+directly. All of it except `styles.css`, `search.js`, `assets/`, `fonts/` is
+generated — never hand-edit generated files, rerun the pipeline instead.
 
 | Piece | Role |
 |---|---|
 | `schema/canonical.sql` | Canonical schema, FTS5 index, ID redirects |
-| `scripts/ingest.py` | Multi-source ingestion + per-field merge engine |
+| `scripts/ingest.py` | Multi-source ingestion + per-field merge engine → `db/helios.db` |
 | `scripts/overrides.json` | Manual corrections — always win, always logged |
-| `scripts/export_static.py` | Canonical JSON: `public/data/index.json` + `bodies/<id>.json` — **single format, two consumers** (this site + Helios renderer) |
-| `scripts/export_pages.py` | No-JS static HTML: `public/index.html` + `bodies/<id>.html` |
-| `scripts/sync.sh` | Manual 4-step rebuild + sync of canonical JSON into `../Helios` |
+| `scripts/export_static.py` | Canonical JSON: `data/index.json` + `data/bodies/<id>.json` — **single format, two consumers** (this site + Helios renderer) |
+| `scripts/export_pages.py` | No-JS static HTML: `index.html` + `bodies/<id>.html` |
+| `scripts/sync.sh` | Manual 4-step rebuild + additive-only sync of canonical JSON into `../Helios` |
 | `server.py` / `server.sh` | **Local dev only** — test query shapes, never public traffic |
-| `public/` | Static site: Zero visual identity, progressive search enhancement |
-| `data/helios.db` | Local SQLite file, git-ignored, rebuilt by ingest |
+| `db/helios.db` | Local SQLite file, git-ignored, rebuilt by ingest |
 
 **IDs are immutable slugs** (`titan`, `s-2009-s-1`). Renames append to
 `designations` (each tagged with assignment year); `?focus=<id>` links never break.
@@ -29,11 +33,10 @@ provenance with conflict rationale, parent/satellite navigation, and the
 one-way "View in Helios Engine →" link (`?focus=<id>`) all work with JavaScript
 fully disabled. Body pages contain zero `<script>` tags.
 
-`public/search.js` (loaded `defer` on the index only) progressively enhances:
+`search.js` (loaded `defer` on the index only) progressively enhances:
 fetches `data/index.json`, search-as-you-type linking to the real static pages.
 If it fails, the `#search-mount` stays `:empty` and CSS hides it — the page is
-unaffected. Verified by structure (no-script pages, single deferred script) and
-a node DOM-stub test of both the success and fetch-failure paths.
+unaffected.
 
 Visual identity (fonts, palette, fixed header) is replicated from the main Zero
 site (`../site`: `assets/css/main.scss`, `components/SiteHeader.vue`) as plain
@@ -88,9 +91,9 @@ overrides as coverage grows; that is the system working as designed.
 ## Run
 
 ```bash
-python3 scripts/ingest.py --reset   # rebuild data/helios.db
-python3 scripts/export_static.py    # write public/data/
-python3 scripts/export_pages.py     # write public/index.html + bodies/
+python3 scripts/ingest.py --reset   # rebuild db/helios.db
+python3 scripts/export_static.py    # write data/
+python3 scripts/export_pages.py     # write index.html + bodies/
 ./server.sh --port 8765             # dev API + static frontend (DEV ONLY)
 ```
 
@@ -98,19 +101,20 @@ python3 scripts/export_pages.py     # write public/index.html + bodies/
 
 ```bash
 # counts + conflicts
-python3 -c "import sqlite3; db=sqlite3.connect('data/helios.db'); print('Total:', db.execute('SELECT COUNT(*) FROM bodies').fetchone()[0]); print('Conflicts:', db.execute(\"SELECT COUNT(*) FROM bodies WHERE conflicts_json != '[]'\").fetchone()[0])"
+python3 -c "import sqlite3; db=sqlite3.connect('db/helios.db'); print('Total:', db.execute('SELECT COUNT(*) FROM bodies').fetchone()[0]); print('Conflicts:', db.execute(\"SELECT COUNT(*) FROM bodies WHERE conflicts_json != '[]'\").fetchone()[0])"
 # page completeness: parents resolve, no orphans, no <script> in body pages
 python3 -c "
 import sqlite3, os
-db = sqlite3.connect('data/helios.db')
-ids = {r[0] for r in db.execute('SELECT id,parent_id FROM bodies') if True}
+db = sqlite3.connect('db/helios.db')
 rows = db.execute('SELECT id,parent_id FROM bodies').fetchall()
+ids = {r[0] for r in rows}
 assert not [r for r in rows if r[1] and r[1] not in ids], 'dangling parent'
-assert all(os.path.exists(f'public/bodies/{i}.html') for i in ids), 'missing page'
-assert not [i for i in ids if '<script' in open(f'public/bodies/{i}.html').read().lower()], 'script in body page'
-print('467 pages, all linked, no-JS pure')"
+assert all(os.path.exists(f'bodies/{i}.html') for i in ids), 'missing page'
+assert all(os.path.exists(f'data/bodies/{i}.json') for i in ids), 'missing json'
+assert not [i for i in ids if '<script' in open(f'bodies/{i}.html').read().lower()], 'script in body page'
+print('pages + json match DB, no-JS pure')"
 # determinism: rerun → identical bytes
-sha256sum data/helios.db && python3 scripts/ingest.py --reset >/dev/null && sha256sum data/helios.db
+sha256sum db/helios.db && python3 scripts/ingest.py --reset >/dev/null && sha256sum db/helios.db
 ```
 
 Manual checks: Mimas/Enceladus mass+period conflicts resolve toward the precise

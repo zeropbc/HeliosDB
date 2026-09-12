@@ -17,8 +17,8 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).parent.parent
-DB_PATH = ROOT / "data" / "helios.db"
-PUBLIC_DIR = ROOT / "public"
+DB_PATH = ROOT / "db" / "helios.db"
+PUBLIC_DIR = ROOT
 BODIES_DIR = PUBLIC_DIR / "bodies"
 
 CLASS_ORDER = ["star", "major-planet", "dwarf-planet", "regular-moon",

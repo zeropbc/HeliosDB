@@ -19,7 +19,7 @@ echo "4/4 Syncing canonical JSON into Helios (side-by-side, non-breaking)..."
 # at bodies/data/ + manifest-canonical.json; old files retire after that.
 HELIOS_DIR="../Helios/bodies/data"
 mkdir -p "$HELIOS_DIR"
-cp public/data/bodies/*.json "$HELIOS_DIR/"
-cp public/data/index.json "$HELIOS_DIR/manifest-canonical.json"
+cp data/bodies/*.json "$HELIOS_DIR/"
+cp data/index.json "$HELIOS_DIR/manifest-canonical.json"
 
 echo "Sync complete. Review changes in both repos before committing."

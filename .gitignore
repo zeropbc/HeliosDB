@@ -1,7 +1,6 @@
-# ---> generated, local-only
-data/helios.db
-data/*.db
-data/*.db-*
-public/data/
+# ---> generated, local-only (never committed)
+db/helios.db
+db/*.db
+db/*.db-*
 __pycache__/
 *.pyc

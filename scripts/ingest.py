@@ -29,7 +29,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).parent.parent
 HELIOS = ROOT.parent / "Helios"
-DB_PATH = ROOT / "data" / "helios.db"
+DB_PATH = ROOT / "db" / "helios.db"
 SCHEMA_PATH = ROOT / "schema" / "canonical.sql"
 OVERRIDES_PATH = Path(__file__).parent / "overrides.json"
 

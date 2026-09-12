@@ -24,8 +24,8 @@ from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
 ROOT = Path(__file__).parent
-DB_PATH = ROOT / "data" / "helios.db"
-PUBLIC_DIR = ROOT / "public"
+DB_PATH = ROOT / "db" / "helios.db"
+PUBLIC_DIR = ROOT
 
 SORTABLE = {"name", "radius_km", "mass_kg", "semi_major_axis_au", "semi_major_axis_km",
             "eccentricity", "inclination_deg", "orbital_period_days", "discovery_year",
