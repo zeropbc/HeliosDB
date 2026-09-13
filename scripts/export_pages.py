@@ -16,6 +16,8 @@ import sqlite3
 import sys
 from pathlib import Path
 
+import markdown
+
 ROOT = Path(__file__).parent.parent
 DB_PATH = ROOT / "db" / "helios.db"
 PUBLIC_DIR = ROOT
@@ -108,13 +110,22 @@ def fmt_json_cell(raw):
     return esc(json.dumps(v, sort_keys=True))
 
 
+def md_table(rows):
+    if not rows:
+        return "—"
+    lines = [
+        "| Field | Value | Unit |",
+        "| --- | ---: | --- |",
+    ]
+    for k, v, u in rows:
+        lines.append(f"| {esc(k)} | {v} | {esc(u) if u else ''} |")
+    return "\n".join(lines)
+
+
 def table(rows):
     if not rows:
         return "<p class=\"dim\">—</p>"
-    return ("<table><tbody>" + "".join(
-        f"<tr><th scope=\"row\">{esc(k)}</th><td class=\"num\">{v}</td>"
-        f"{f'<td class=\"unit dim\">{esc(u)}</td>' if u else '<td></td>'}</tr>"
-        for k, v, u in rows) + "</tbody></table>")
+    return markdown.markdown(md_table(rows), extensions=["tables"])
 
 
 def header(nav_extra=""):
