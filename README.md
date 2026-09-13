@@ -3,7 +3,7 @@
 Unified, searchable astronomical database: orbital mechanics, physical properties,
 and discovery metadata for solar-system bodies. Canonical SQLite store with FTS5,
 a local-only dev API, static JSON + static HTML exports. Deploys to GitHub Pages
-(classic branch deploy, no Actions, no JavaScript required).
+(classic branch deploy, no Actions).
 
 ## Layout
 

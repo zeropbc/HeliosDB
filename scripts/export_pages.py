@@ -21,6 +21,8 @@ DB_PATH = ROOT / "db" / "helios.db"
 PUBLIC_DIR = ROOT
 BODIES_DIR = PUBLIC_DIR / "bodies"
 
+CSS_VERSION = "6"  # bump when styles.css changes (cache-bust)
+
 CLASS_ORDER = ["star", "major-planet", "dwarf-planet", "regular-moon",
                "irregular-moon", "centaur", "tno", "asteroid", "comet", "exoplanet"]
 CLASS_TITLES = {"star": "Stars", "major-planet": "Major Planets",
@@ -76,6 +78,9 @@ DISCOVERY_LABELS = [
     ("naming_origin", "Naming origin", None),
 ]
 
+FIELD_LABELS = {c: l for c, l, _ in PHYSICAL_LABELS + ORBITAL_LABELS + DISCOVERY_LABELS}
+FIELD_LABELS["longitude_periapsis_deg"] = "Longitude of periapsis"  # JPL ϖ; distinct from argument (ω)
+
 
 def esc(s):
     return html.escape("" if s is None else str(s), quote=True)
@@ -85,7 +90,7 @@ def fmt(v):
     if isinstance(v, float):
         if v != v:
             return "—"
-        return str(int(v)) if v.is_integer() else f"{v:.6g}"
+        return f"{v:.6g}"
     return esc(v)
 
 
@@ -108,7 +113,7 @@ def table(rows):
         return "<p class=\"dim\">—</p>"
     return ("<table><tbody>" + "".join(
         f"<tr><th scope=\"row\">{esc(k)}</th><td class=\"num\">{v}</td>"
-        f"{f'<td class=\"unit dim\">{esc(u)}</td>' if u else '<td></td>'}"
+        f"{f'<td class=\"unit dim\">{esc(u)}</td>' if u else '<td></td>'}</tr>"
         for k, v, u in rows) + "</tbody></table>")
 
 
@@ -116,8 +121,7 @@ def header(nav_extra=""):
     return f"""<header class="site-header">
   <div class="header-row">
     <a href="../index.html" class="brand" aria-label="HeliosDB home">
-      <img src="../assets/Logo Dark BG-less.svg" alt="" class="brand-logo brand-logo--dark" width="24" height="27">
-      <img src="../assets/Logo Light BG-less.svg" alt="" class="brand-logo brand-logo--light" width="24" height="27">
+      <img src="../favicon.svg" alt="" class="brand-mark" width="24" height="24">
       <span class="brand-word">HeliosDB</span>
     </a>
     <nav class="nav" aria-label="Main Navigation">
@@ -125,12 +129,12 @@ def header(nav_extra=""):
       <a href="https://zeropbc.github.io/Helios/">Helios Engine</a>
       <a href="https://github.com/zeropbc/HeliosDB">GitHub</a>
     </nav>
+    <a href="https://zeropbc.github.io/" class="zero-link" aria-label="Zero Labs">
+      <img src="../assets/Logo Dark BG-less.svg" alt="" class="brand-logo brand-logo--dark" width="24" height="27">
+      <img src="../assets/Logo Light BG-less.svg" alt="" class="brand-logo brand-logo--light" width="24" height="27">
+    </a>
   </div>
 </header>{nav_extra}"""
-
-
-def footer():
-    return """<footer class="foot"><span>HeliosDB static snapshot · sources cited per record · no JavaScript required</span></footer>"""
 
 
 def body_page(d, children, by_id, helios_url):
@@ -153,19 +157,20 @@ def body_page(d, children, by_id, helios_url):
         f'<span class="dim">{esc(c["classification"])}</span></li>'
         for c in children)
     desig_rows = "".join(
-        f"<tr><td class=\"num\">{esc(g.get('designation', ''))}</td>"
-        f"<td class=\"num\">{esc(g.get('since') or '?')}</td>"
+        f"<tr><td>{esc(g.get('designation', ''))}</td>"
+        f"<td>{esc(g.get('since') or '?')}</td>"
         f"<td class=\"dim\">{esc(g.get('kind') or '')}</td></tr>" for g in desigs)
     conf_rows = "".join(
-        f"<div class=\"conflict\"><b>{esc(c['field'])}</b>: kept "
+        f"<div class=\"conflict\"><b title=\"{esc(c['field'])}\">{esc(FIELD_LABELS.get(c['field'], c['field']))}</b>: kept "
         f"<span class=\"num\">{esc(c['chosen_value'])}</span> ({esc(c['chosen_source'])})<br>"
         f"<span class=\"rej\">rejected <span class=\"num\">{esc(c['rejected_value'])}</span> "
         f"({esc(c['rejected_source'])})</span><br>"
         f"<span class=\"why\">reason: {esc(c['reason'])}</span></div>" for c in conflicts)
     src_rows = "".join(
         f"<div>· {esc(s['source_name'])} <span class=\"dim\">({esc(s['retrieved_date'])}): "
-        f"{esc(', '.join(s.get('fields_provided', [])))}</span></div>" for s in sources)
-    rates_rows = [(k, fmt(v), "per century") for k, v in sorted(rates.items())]
+        f"{esc(', '.join(FIELD_LABELS.get(f, f) for f in s.get('fields_provided', [])))}</span></div>" for s in sources)
+    rates_rows = [(FIELD_LABELS.get(k, k), fmt(v), "per century")
+                  for k, v in sorted(rates.items())]
     render_rows = []
     if d.get("render_color_hex"):
         render_rows.append(("Color hex", esc(d["render_color_hex"]), None))
@@ -187,8 +192,9 @@ def body_page(d, children, by_id, helios_url):
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{esc(d["name"])} — HeliosDB</title>
-<link rel="stylesheet" href="../styles.css">
+<title>{esc(d["name"])}</title>
+<link rel="stylesheet" href="../styles.css?v={CSS_VERSION}">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
 </head>
 <body>
 {header()}
@@ -230,7 +236,6 @@ def body_page(d, children, by_id, helios_url):
   <h2>Record</h2>
   {table(record_rows)}
 </main>
-{footer()}
 </body>
 </html>
 """
@@ -262,16 +267,16 @@ def index_page(groups, alpha, total, helios_url):
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>HeliosDB — Canonical Astronomical Database</title>
-<link rel="stylesheet" href="styles.css">
+<title>HeliosDB</title>
+<link rel="stylesheet" href="styles.css?v={CSS_VERSION}">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 <script defer src="search.js"></script>
 </head>
 <body>
 <header class="site-header">
   <div class="header-row">
     <a href="index.html" class="brand" aria-label="HeliosDB home">
-      <img src="assets/Logo Dark BG-less.svg" alt="" class="brand-logo brand-logo--dark" width="24" height="27">
-      <img src="assets/Logo Light BG-less.svg" alt="" class="brand-logo brand-logo--light" width="24" height="27">
+      <img src="favicon.svg" alt="" class="brand-mark" width="24" height="24">
       <span class="brand-word">HeliosDB</span>
     </a>
     <nav class="nav" aria-label="Main Navigation">
@@ -279,6 +284,10 @@ def index_page(groups, alpha, total, helios_url):
       <a href="https://zeropbc.github.io/Helios/">Helios Engine</a>
       <a href="https://github.com/zeropbc/HeliosDB">GitHub</a>
     </nav>
+    <a href="https://zeropbc.github.io/" class="zero-link" aria-label="Zero Labs">
+      <img src="assets/Logo Dark BG-less.svg" alt="" class="brand-logo brand-logo--dark" width="24" height="27">
+      <img src="assets/Logo Light BG-less.svg" alt="" class="brand-logo brand-logo--light" width="24" height="27">
+    </a>
   </div>
 </header>
 <main class="wrap">
@@ -297,7 +306,6 @@ GET data/bodies/&lt;id&gt;.json     # full canonical record</code></pre>
   <code>/api/v1/bodies/&lt;id&gt;</code>, <code>/api/v1/systems/&lt;parent_id&gt;</code>,
   <code>/api/v1/export/helios</code>, <code>/api/v1/stats</code>.</p>
 </main>
-{footer()}
 </body>
 </html>
 """

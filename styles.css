@@ -49,6 +49,8 @@ a { color: inherit; text-decoration: none; }
   .brand-logo--light { display: block; }
 }
 .brand-word { font-weight: 700; letter-spacing: 0.08em; font-size: 0.95rem; }
+.brand-mark { height: 1.25rem; width: auto; }
+.zero-link { margin-left: auto; display: flex; align-items: center; }
 .nav { display: flex; align-items: center; gap: 1.25rem; }
 .nav a { color: var(--fg-muted); font-size: 0.9rem; transition: color 0.15s; }
 .nav a:hover { color: var(--fg); }
@@ -62,7 +64,6 @@ a { color: inherit; text-decoration: none; }
 .crumb a:hover { color: var(--fg); }
 .dim { color: var(--fg-muted); }
 .mono, .num { font-family: var(--font-mono); }
-.num { text-align: right; }
 .unit { white-space: nowrap; }
 .ticker { color: var(--fg-muted); font-size: 0.85rem; margin: 0.6rem 0 0; }
 .ticker b { color: var(--fg); }
@@ -79,8 +80,8 @@ a { color: inherit; text-decoration: none; }
 
 /* — tables — */
 table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
-th, td { padding: 0.35rem 0.5rem; border-bottom: 1px solid var(--border); vertical-align: top; }
-th[scope="row"], thead th { text-align: left; font-weight: 500; color: var(--fg-muted); width: 42%; }
+th, td { padding: 0.35rem 0.5rem; border-bottom: 1px solid var(--border); vertical-align: top; text-align: left; }
+th[scope="row"], thead th { font-weight: 500; color: var(--fg-muted); }
 thead th { text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.1em; }
 
 /* — lists — */
