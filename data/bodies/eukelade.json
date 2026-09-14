@@ -1,5 +1,7 @@
 {
  "aliases": [],
+ "astrometry": {},
+ "catalog_ids": {},
  "classification": "irregular-moon",
  "confidence_score": 1.0,
  "created_at": "2026-09-12T00:00:00Z",
@@ -16,6 +18,7 @@
   "discovery_year": 2003
  },
  "id": "eukelade",
+ "ingest_origin": "batch",
  "name": "Eukelade",
  "orbital": {
   "apoapsis_au": 0.19640318048992125,
@@ -64,7 +67,9 @@
   "radius": null,
   "rings": {}
  },
+ "stellar": {},
  "superseded_by": null,
  "system": "Jovian System",
+ "system_id": null,
  "updated_at": "2026-09-12T00:00:00Z"
 }

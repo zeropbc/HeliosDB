@@ -1,5 +1,7 @@
 {
  "aliases": [],
+ "astrometry": {},
+ "catalog_ids": {},
  "classification": "irregular-moon",
  "confidence_score": 0.85,
  "created_at": "2026-09-12T00:00:00Z",
@@ -16,6 +18,7 @@
   "discovery_year": 1914
  },
  "id": "sinope",
+ "ingest_origin": "batch",
  "name": "Sinope",
  "orbital": {
   "apoapsis_au": 0.199757365931546,
@@ -106,7 +109,9 @@
   "radius": 0.08,
   "rings": {}
  },
+ "stellar": {},
  "superseded_by": null,
  "system": "Jovian System",
+ "system_id": null,
  "updated_at": "2026-09-12T00:00:00Z"
 }

@@ -36,6 +36,20 @@
  },
  {
   "aliases": [],
+  "classification": "star",
+  "id": "alpha-centauri-a",
+  "name": "Alpha Centauri A",
+  "parent_id": null
+ },
+ {
+  "aliases": [],
+  "classification": "star",
+  "id": "alpha-centauri-b",
+  "name": "Alpha Centauri B",
+  "parent_id": null
+ },
+ {
+  "aliases": [],
   "classification": "irregular-moon",
   "id": "alvaldi",
   "name": "Alvaldi",
@@ -961,6 +975,34 @@
   "id": "proteus",
   "name": "Proteus",
   "parent_id": "neptune"
+ },
+ {
+  "aliases": [],
+  "classification": "planet",
+  "id": "proxima-b",
+  "name": "Proxima b",
+  "parent_id": "proxima-centauri"
+ },
+ {
+  "aliases": [],
+  "classification": "planet",
+  "id": "proxima-c",
+  "name": "Proxima c",
+  "parent_id": "proxima-centauri"
+ },
+ {
+  "aliases": [],
+  "classification": "star",
+  "id": "proxima-centauri",
+  "name": "Proxima Centauri",
+  "parent_id": null
+ },
+ {
+  "aliases": [],
+  "classification": "planet",
+  "id": "proxima-d",
+  "name": "Proxima d",
+  "parent_id": "proxima-centauri"
  },
  {
   "aliases": [],

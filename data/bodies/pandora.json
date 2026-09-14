@@ -1,5 +1,7 @@
 {
  "aliases": [],
+ "astrometry": {},
+ "catalog_ids": {},
  "classification": "regular-moon",
  "confidence_score": 0.8,
  "created_at": "2026-09-12T00:00:00Z",
@@ -16,6 +18,7 @@
   "discovery_year": 1980
  },
  "id": "pandora",
+ "ingest_origin": "batch",
  "name": "Pandora",
  "orbital": {
   "apoapsis_au": 0.0009511842604053857,
@@ -127,7 +130,9 @@
   "radius": 0.12,
   "rings": {}
  },
+ "stellar": {},
  "superseded_by": null,
  "system": "Saturnian System",
+ "system_id": null,
  "updated_at": "2026-09-12T00:00:00Z"
 }

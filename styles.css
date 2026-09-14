@@ -1,23 +1,45 @@
 /* HeliosDB — Zero Labs visual identity, no framework, no build step.
    Tokens + header replicated from the main Zero site (assets/css/main.scss,
-   components/SiteHeader.vue). Font files vendored under fonts/. */
-@font-face { font-family: 'Astral Sans'; src: url('fonts/Astral Sans Regular.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
-@font-face { font-family: 'Astral Sans'; src: url('fonts/Astral Sans Medium.woff2') format('woff2'); font-weight: 500; font-style: normal; font-display: swap; }
-@font-face { font-family: 'Astral Sans'; src: url('fonts/Astral Sans Bold.woff2') format('woff2'); font-weight: 700; font-style: normal; font-display: swap; }
-@font-face { font-family: 'Ioskeley Mono'; src: url('fonts/IoskeleyMono-SemiCondensed.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
-@font-face { font-family: 'Ioskeley Mono'; src: url('fonts/IoskeleyMono-SemiCondensedMedium.woff2') format('woff2'); font-weight: 500; font-style: normal; font-display: swap; }
+   components/SiteHeader.vue). Font files are user-supplied under
+   fonts/<family>/ and intentionally not committed. */
+@font-face { font-family: 'Source Sans 3'; src: url('fonts/source-sans-3/SourceSans-VF.woff2') format('woff2'); font-weight: 100 900; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Source Sans 3'; src: url('fonts/source-sans-3/SourceSans-IVF.woff2') format('woff2'); font-weight: 100 900; font-style: italic; font-display: swap; }
+@font-face { font-family: 'Ioskeley Mono'; src: url('fonts/ioskeley-mono/IoskeleyMonoTerm-Regular.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Ioskeley Mono'; src: url('fonts/ioskeley-mono/IoskeleyMonoTerm-Medium.woff2') format('woff2'); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Ioskeley Mono'; src: url('fonts/ioskeley-mono/IoskeleyMonoTerm-Bold.woff2') format('woff2'); font-weight: 700; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Terminal Grotesque Open'; src: url('fonts/terminal-grotesque-open/terminal-grotesque-webfont.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
 
 :root {
-  --bg: #000000;
-  --fg: #ffffff;
-  --fg-muted: #a0a0a0;
-  --accent: #e8e8e8;
-  --border: #222222;
-  --panel: #0a0a0a;
+  --zero-bg: #fbfbfb;
+  --zero-fg: #121212;
+  --zero-accent: #fa4e16;
+
+  --zero-font-sans: 'Source Sans 3', system-ui, sans-serif;
+  --zero-font-mono: 'Ioskeley Mono', ui-monospace, monospace;
+  --zero-font-wordmark: 'Terminal Grotesque Open', 'Source Sans 3', sans-serif;
+
+  --bg: var(--zero-bg);
+  --fg: var(--zero-fg);
+  --accent: var(--zero-accent);
+  --fg-muted: #5b5b5b;
+  --border: #e4e2de;
+  --panel: #f3f1ec;
+  --warn: #b3541e;
+  --bad: #b3261e;
+  --font-sans: var(--zero-font-sans);
+  --font-mono: var(--zero-font-mono);
+  --font-wordmark: var(--zero-font-wordmark);
+}
+
+[data-theme="dark"] {
+  --zero-bg: #121212;
+  --zero-fg: #fbfbfb;
+
+  --fg-muted: #a8a8a8;
+  --border: #2a2a2a;
+  --panel: #1a1a1a;
   --warn: #d9a441;
   --bad: #e06c75;
-  --font-sans: 'Astral Sans', system-ui, sans-serif;
-  --font-mono: 'Ioskeley Mono', ui-monospace, monospace;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -29,7 +51,11 @@ body {
   padding-top: 3.5rem;
 }
 a { color: inherit; text-decoration: none; }
-::selection { background: #ffffff; color: #000000; }
+::selection { background: var(--zero-accent); color: #fbfbfb; }
+a:focus-visible, button:focus-visible, input:focus-visible {
+  outline: 2px solid var(--zero-accent);
+  outline-offset: 2px;
+}
 
 /* — header (SiteHeader.vue replica) — */
 .site-header {
@@ -43,66 +69,83 @@ a { color: inherit; text-decoration: none; }
 }
 .brand { display: flex; align-items: center; gap: 0.6rem; }
 .brand-logo { height: 1.25rem; width: auto; display: none; }
-.brand-logo--dark { display: block; }
-@media (prefers-color-scheme: light) {
-  .brand-logo--dark { display: none; }
-  .brand-logo--light { display: block; }
+.brand-logo--light { display: block; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .brand-logo--light { display: none; }
+  :root:not([data-theme="light"]) .brand-logo--dark { display: block; }
 }
-.brand-word { font-weight: 700; letter-spacing: 0.08em; font-size: 0.95rem; }
+[data-theme="dark"] .brand-logo--light { display: none; }
+[data-theme="dark"] .brand-logo--dark { display: block; }
+.brand-word { font-weight: 600; letter-spacing: 0.01em; font-size: 0.95rem; }
+/* Terminal Grotesque is reserved for Zero branding only. */
+.brand-word--zero { font-family: var(--font-wordmark); text-transform: uppercase; letter-spacing: 0.02em; }
 .brand-mark { height: 1.25rem; width: auto; }
 .zero-link { margin-left: auto; display: flex; align-items: center; }
 .nav { display: flex; align-items: center; gap: 1.25rem; }
 .nav a { color: var(--fg-muted); font-size: 0.9rem; transition: color 0.15s; }
-.nav a:hover { color: var(--fg); }
+.nav a:hover { color: var(--zero-accent); }
 
 /* — layout — */
 .wrap { max-width: 68rem; margin: 0 auto; padding: 2rem 2rem 4rem; }
 .wrap h1 { font-size: 2rem; letter-spacing: 0.01em; margin: 0.5rem 0 0.25rem; display: flex; align-items: center; gap: 0.6rem; }
 .wrap h2 { font-size: 1.15rem; letter-spacing: 0.01em; margin: 2.2rem 0 0.8rem; border-bottom: 1px solid var(--border); padding-bottom: 0.4rem; }
 .wrap h3 { font-size: 0.95rem; margin: 1.2rem 0 0.5rem; }
-.crumb { color: var(--fg-muted); font-size: 0.85rem; }
-.crumb a:hover { color: var(--fg); }
+.crumb { color: var(--fg-muted); font-size: 0.85rem; font-family: var(--font-mono); }
+.crumb a:hover { color: var(--zero-accent); }
 .dim { color: var(--fg-muted); }
 .mono, .num { font-family: var(--font-mono); }
 .unit { white-space: nowrap; }
-.ticker { color: var(--fg-muted); font-size: 0.85rem; margin: 0.6rem 0 0; }
+.ticker { color: var(--fg-muted); font-size: 0.85rem; margin: 0.6rem 0 0; font-family: var(--font-mono); }
 .ticker b { color: var(--fg); }
 .badge {
-  display: inline-block; font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase;
+  display: inline-block; font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase;
   border: 1px solid var(--border); border-radius: 999px; padding: 0.1rem 0.7rem; color: var(--fg-muted);
 }
+.badge.is-active { border-color: var(--zero-accent); color: var(--zero-accent); }
 .swatch { display: inline-block; width: 1.1rem; height: 1.1rem; border-radius: 50%; border: 1px solid var(--border); }
 .btn {
   display: inline-block; border: 1px solid var(--border); border-radius: 0.5rem;
   padding: 0.45rem 0.9rem; font-size: 0.9rem; margin-top: 0.6rem;
 }
-.btn:hover { border-color: var(--fg); }
+.btn:hover { border-color: var(--zero-accent); color: var(--zero-accent); }
+.btn.is-selected { border-color: var(--zero-accent); color: var(--zero-accent); }
 
 /* — tables — */
 table {
   width: 100%; border-collapse: collapse; font-size: 0.92rem; table-layout: fixed;
 }
-th, td {
+.kv-table {
+  width: 100%; border-collapse: collapse; font-size: 0.92rem; table-layout: fixed;
+}
+.kv-table th, .kv-table td {
   padding: 0.35rem 0.5rem; border-bottom: 1px solid var(--border); vertical-align: top;
   text-align: left;
 }
-th:first-child, td:first-child { width: 58%; }
-th:nth-child(2), td:nth-child(2) {
-  width: 26%; text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums;
+.kv-table th:first-child, .kv-table td:first-child { width: 58%; }
+.kv-table th:nth-child(2), .kv-table td:nth-child(2) {
+ width: 26%; text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums;
   font-feature-settings: "tnum" 1; padding-left: 1rem; padding-right: 1rem;
 }
-th:nth-child(3), td:nth-child(3) { width: 16%; text-align: left; white-space: nowrap; }
-thead th {
+.kv-table th:nth-child(3), .kv-table td:nth-child(3) { width: 16%; text-align: left; white-space: nowrap; }
+.kv-table thead th {
   font-weight: 500; color: var(--fg-muted); text-transform: none; font-size: 0.75rem; letter-spacing: 0.02em;
 }
+.kv-table td.num {
+  text-align: right;
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+/* Scientific values keep neutral text — never accent. */
+.kv-table td.num, td.num { color: var(--fg); }
 
 /* — lists — */
 ul.idx, ul.satlist { list-style: none; columns: 3; column-gap: 2rem; font-size: 0.92rem; }
 @media (max-width: 60rem) { ul.idx, ul.satlist { columns: 2; } }
 @media (max-width: 40rem) { ul.idx, ul.satlist { columns: 1; } }
 ul.idx li, ul.satlist li { break-inside: avoid; padding: 0.12rem 0; }
-ul.idx a:hover, ul.satlist a:hover, p a:hover { color: var(--fg); text-decoration: underline; }
+ul.idx a:hover, ul.satlist a:hover, p a:hover { color: var(--zero-accent); text-decoration: underline; }
 ul.idx a, ul.satlist a, p a { color: var(--accent); }
+ul.idx a.is-selected, ul.satlist a.is-selected { color: var(--zero-accent); }
 .az-head { margin-top: 3rem; }
 
 /* — provenance — */
@@ -120,7 +163,7 @@ code { font-family: var(--font-mono); font-size: 0.85em; }
   font-family: var(--font-sans); background: var(--panel); color: var(--fg);
   border: 1px solid var(--border); border-radius: 0.5rem;
 }
-#search-mount input:focus { outline: none; border-color: var(--fg); }
+#search-mount input:focus { outline: none; border-color: var(--zero-accent); }
 #search-mount ul { list-style: none; margin-top: 0.5rem; }
 #search-mount li { padding: 0.2rem 0; font-size: 0.92rem; }
 #search-mount a { color: var(--accent); }
@@ -128,10 +171,12 @@ code { font-family: var(--font-mono); font-size: 0.85em; }
 
 .foot { border-top: 1px solid var(--border); padding: 1rem 2rem 2rem; color: var(--fg-muted); font-size: 0.8rem; max-width: 68rem; margin: 0 auto; }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    --bg: #ffffff; --fg: #000000; --fg-muted: #555555;
-    --accent: #333333; --border: #e5e5e5; --panel: #f7f7f7;
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --zero-bg: #121212; --zero-fg: #fbfbfb;
+    --fg-muted: #a8a8a8;
+    --border: #2a2a2a; --panel: #1a1a1a;
+    --warn: #d9a441; --bad: #e06c75;
   }
-  ::selection { background: #000000; color: #ffffff; }
+  :root:not([data-theme="light"]) ::selection { background: var(--zero-accent); color: #fbfbfb; }
 }

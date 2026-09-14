@@ -1,11 +1,14 @@
 {
  "aliases": [],
+ "astrometry": {},
+ "catalog_ids": {},
  "classification": "regular-moon",
  "confidence_score": 1.0,
  "created_at": "2026-09-12T00:00:00Z",
  "designations": [],
  "discovery": {},
  "id": "miranda",
+ "ingest_origin": "batch",
  "name": "Miranda",
  "orbital": {
   "apoapsis_au": 0.0008661245000000001,
@@ -58,7 +61,9 @@
   "radius": 0.14,
   "rings": {}
  },
+ "stellar": {},
  "superseded_by": null,
  "system": "Uranian System",
+ "system_id": null,
  "updated_at": "2026-09-12T00:00:00Z"
 }

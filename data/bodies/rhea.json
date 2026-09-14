@@ -1,5 +1,7 @@
 {
  "aliases": [],
+ "astrometry": {},
+ "catalog_ids": {},
  "classification": "regular-moon",
  "confidence_score": 0.95,
  "created_at": "2026-09-12T00:00:00Z",
@@ -16,6 +18,7 @@
   "discovery_year": 1672
  },
  "id": "rhea",
+ "ingest_origin": "batch",
  "name": "Rhea",
  "orbital": {
   "apoapsis_au": 0.003527638445190784,
@@ -118,7 +121,9 @@
   "radius": 0.23,
   "rings": {}
  },
+ "stellar": {},
  "superseded_by": null,
  "system": "Saturnian System",
+ "system_id": null,
  "updated_at": "2026-09-12T00:00:00Z"
 }

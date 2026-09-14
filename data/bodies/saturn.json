@@ -1,11 +1,14 @@
 {
  "aliases": [],
+ "astrometry": {},
+ "catalog_ids": {},
  "classification": "major-planet",
  "confidence_score": 1.0,
  "created_at": "2026-09-12T00:00:00Z",
  "designations": [],
  "discovery": {},
  "id": "saturn",
+ "ingest_origin": "batch",
  "name": "Saturn",
  "orbital": {
   "apoapsis_au": 10.050338376778333,
@@ -125,7 +128,9 @@
    ]
   }
  },
+ "stellar": {},
  "superseded_by": null,
  "system": "Solar System",
+ "system_id": null,
  "updated_at": "2026-09-12T00:00:00Z"
 }

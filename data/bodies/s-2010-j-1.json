@@ -1,5 +1,7 @@
 {
  "aliases": [],
+ "astrometry": {},
+ "catalog_ids": {},
  "classification": "irregular-moon",
  "confidence_score": 1.0,
  "created_at": "2026-09-12T00:00:00Z",
@@ -21,6 +23,7 @@
   "discovery_year": 2010
  },
  "id": "s-2010-j-1",
+ "ingest_origin": "batch",
  "name": "S/2010 J 1",
  "orbital": {
   "apoapsis_au": 0.19466262095667652,
@@ -69,7 +72,9 @@
   "radius": null,
   "rings": {}
  },
+ "stellar": {},
  "superseded_by": null,
  "system": "Jovian System",
+ "system_id": null,
  "updated_at": "2026-09-12T00:00:00Z"
 }

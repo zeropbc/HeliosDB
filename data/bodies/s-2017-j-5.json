@@ -1,5 +1,7 @@
 {
  "aliases": [],
+ "astrometry": {},
+ "catalog_ids": {},
  "classification": "irregular-moon",
  "confidence_score": 1.0,
  "created_at": "2026-09-12T00:00:00Z",
@@ -21,6 +23,7 @@
   "discovery_year": 2017
  },
  "id": "s-2017-j-5",
+ "ingest_origin": "batch",
  "name": "S/2017 J 5",
  "orbital": {
   "apoapsis_au": 0.19557579170811024,
@@ -69,7 +72,9 @@
   "radius": null,
   "rings": {}
  },
+ "stellar": {},
  "superseded_by": null,
  "system": "Jovian System",
+ "system_id": null,
  "updated_at": "2026-09-12T00:00:00Z"
 }

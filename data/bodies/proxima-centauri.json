@@ -1,0 +1,70 @@
+{
+ "aliases": [],
+ "astrometry": {
+  "distance_pc": 1.301,
+  "distance_pc_uncertainty": 0.001,
+  "parallax_mas": 768.13,
+  "parallax_uncertainty_mas": 0.02,
+  "proper_motion_dec_mas_yr": 769.5,
+  "proper_motion_ra_mas_yr": -3781.3,
+  "radial_velocity_km_s": -22.2
+ },
+ "catalog_ids": {
+  "GJ": "GJ 551",
+  "Gaia DR3": "Gaia DR3 5538295552908430976",
+  "HIP": "HIP 70890",
+  "LHS": "LHS 49"
+ },
+ "classification": "star",
+ "confidence_score": 0.95,
+ "created_at": "2026-09-13T00:00:00Z",
+ "designations": [],
+ "discovery": {
+  "detection_method": "astrometry",
+  "discovery_status": "confirmed"
+ },
+ "id": "proxima-centauri",
+ "ingest_origin": "batch",
+ "name": "Proxima Centauri",
+ "orbital": {
+  "epoch_jd": 2451545.0,
+  "rates_json": {}
+ },
+ "parent_id": null,
+ "physical": {
+  "dimensions_json": [],
+  "mass_kg": 2.446e+29,
+  "radius_km": 83900.0,
+  "spectral_type": "M5.5Ve"
+ },
+ "provenance": {
+  "conflicts": [],
+  "sources": [
+   {
+    "fields_provided": [
+     "system",
+     "primary_star_id",
+     "distance_pc",
+     "catalog_ids_json"
+    ],
+    "retrieved_date": "2026-09-13",
+    "source_name": "Alpha Centauri system data",
+    "source_url": "https://en.wikipedia.org/wiki/Alpha_Centauri"
+   }
+  ]
+ },
+ "render": {
+  "color_hex": "#6d8a6d",
+  "radius": 1.8,
+  "rings": {}
+ },
+ "stellar": {
+  "age_gyr": 4.85,
+  "luminosity_log_solar": -1.27,
+  "metallicity_fe_h": 0.21
+ },
+ "superseded_by": null,
+ "system": "Alpha Centauri",
+ "system_id": "alpha-centauri",
+ "updated_at": "2026-09-13T00:00:00Z"
+}

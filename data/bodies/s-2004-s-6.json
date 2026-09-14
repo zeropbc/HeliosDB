@@ -1,5 +1,7 @@
 {
  "aliases": [],
+ "astrometry": {},
+ "catalog_ids": {},
  "classification": "regular-moon",
  "confidence_score": 1.0,
  "created_at": "2026-09-12T00:00:00Z",
@@ -14,6 +16,7 @@
   "discovery_year": 2004
  },
  "id": "s-2004-s-6",
+ "ingest_origin": "batch",
  "name": "S/2004 S 6",
  "orbital": {
   "epoch_jd": 2451545.0,
@@ -51,7 +54,9 @@
   "radius": null,
   "rings": {}
  },
+ "stellar": {},
  "superseded_by": null,
  "system": "Saturnian System",
+ "system_id": null,
  "updated_at": "2026-09-12T00:00:00Z"
 }

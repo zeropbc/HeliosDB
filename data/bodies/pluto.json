@@ -1,5 +1,7 @@
 {
  "aliases": [],
+ "astrometry": {},
+ "catalog_ids": {},
  "classification": "dwarf-planet",
  "confidence_score": 1.0,
  "created_at": "2026-09-12T00:00:00Z",
@@ -12,6 +14,7 @@
  ],
  "discovery": {},
  "id": "pluto",
+ "ingest_origin": "batch",
  "name": "Pluto",
  "orbital": {
   "apoapsis_au": 49.30512159999999,
@@ -69,7 +72,9 @@
   "radius": null,
   "rings": {}
  },
+ "stellar": {},
  "superseded_by": null,
  "system": "Solar System",
+ "system_id": null,
  "updated_at": "2026-09-12T00:00:00Z"
 }

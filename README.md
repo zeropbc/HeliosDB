@@ -91,11 +91,16 @@ overrides as coverage grows; that is the system working as designed.
 ## Run
 
 ```bash
-python3 scripts/ingest.py --reset   # rebuild db/helios.db
+python3 scripts/ingest.py --reset   # rebuild db/helios.db from batch sources only
 python3 scripts/export_static.py    # write data/
 python3 scripts/export_pages.py     # write index.html + bodies/
+python3 scripts/ingest_single.py path/to/body.json  # single-body manual ingest (ephemeral)
 ./server.sh --port 8765             # dev API + static frontend (DEV ONLY)
 ```
+
+> Single-body ingestion is intentionally ephemeral: rows created via
+> `scripts/ingest_single.py` are erased on the next `scripts/ingest.py --reset`
+> because reset rebuilds the database from authoritative batch sources only.
 
 ## Verification
 

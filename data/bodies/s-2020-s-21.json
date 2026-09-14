@@ -1,5 +1,7 @@
 {
  "aliases": [],
+ "astrometry": {},
+ "catalog_ids": {},
  "classification": "irregular-moon",
  "confidence_score": 1.0,
  "created_at": "2026-09-12T00:00:00Z",
@@ -16,6 +18,7 @@
   "discovery_year": 2020
  },
  "id": "s-2020-s-21",
+ "ingest_origin": "batch",
  "name": "S/2020 S 21",
  "orbital": {
   "apoapsis_au": 0.1647935534419341,
@@ -64,7 +67,9 @@
   "radius": null,
   "rings": {}
  },
+ "stellar": {},
  "superseded_by": null,
  "system": "Saturnian System",
+ "system_id": null,
  "updated_at": "2026-09-12T00:00:00Z"
 }

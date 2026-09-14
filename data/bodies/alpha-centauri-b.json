@@ -1,0 +1,65 @@
+{
+ "aliases": [],
+ "astrometry": {
+  "distance_pc": 1.338,
+  "distance_pc_uncertainty": 0.002,
+  "parallax_mas": 747.1,
+  "parallax_uncertainty_mas": 0.1,
+  "proper_motion_dec_mas_yr": 481.84,
+  "proper_motion_ra_mas_yr": -3678.19,
+  "radial_velocity_km_s": -22.2
+ },
+ "catalog_ids": {
+  "Gaia DR3": "Gaia DR3 716832",
+  "HIP": "HIP 71681"
+ },
+ "classification": "star",
+ "confidence_score": 0.95,
+ "created_at": "2026-09-13T00:00:00Z",
+ "designations": [],
+ "discovery": {},
+ "id": "alpha-centauri-b",
+ "ingest_origin": "batch",
+ "name": "Alpha Centauri B",
+ "orbital": {
+  "epoch_jd": 2451545.0,
+  "rates_json": {}
+ },
+ "parent_id": null,
+ "physical": {
+  "dimensions_json": [],
+  "mass_kg": 1.804e+30,
+  "radius_km": 855000.0,
+  "spectral_type": "K1V"
+ },
+ "provenance": {
+  "conflicts": [],
+  "sources": [
+   {
+    "fields_provided": [
+     "system",
+     "primary_star_id",
+     "distance_pc",
+     "catalog_ids_json"
+    ],
+    "retrieved_date": "2026-09-13",
+    "source_name": "Alpha Centauri system data",
+    "source_url": "https://en.wikipedia.org/wiki/Alpha_Centauri"
+   }
+  ]
+ },
+ "render": {
+  "color_hex": "#9cbad6",
+  "radius": 2.1,
+  "rings": {}
+ },
+ "stellar": {
+  "age_gyr": 5.3,
+  "luminosity_log_solar": -0.3,
+  "metallicity_fe_h": 0.23
+ },
+ "superseded_by": null,
+ "system": "Alpha Centauri",
+ "system_id": "alpha-centauri",
+ "updated_at": "2026-09-13T00:00:00Z"
+}

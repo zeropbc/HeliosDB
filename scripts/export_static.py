@@ -30,7 +30,14 @@ ORBITAL = ["semi_major_axis_au", "semi_major_axis_km", "periapsis_au", "apoapsis
            "orbital_period_days", "orbital_period_years", "orbital_velocity_km_s",
            "epoch_jd", "rates_json"]
 DISCOVERY = ["discovery_year", "announcement_year", "discoverer",
-             "discovery_site", "naming_origin"]
+             "discovery_site", "naming_origin", "discovery_status",
+             "detection_method", "minimum_mass_earth",
+             "minimum_mass_uncertainty_earth"]
+ASTROMETRY = ["parallax_mas", "parallax_uncertainty_mas", "parallax_epoch",
+             "proper_motion_ra_mas_yr", "proper_motion_dec_mas_yr",
+             "radial_velocity_km_s", "radial_velocity_uncertainty_km_s",
+             "distance_pc", "distance_pc_uncertainty"]
+STELLAR = ["luminosity_log_solar", "metallicity_fe_h", "age_gyr"]
 
 
 def dump(obj):
@@ -58,6 +65,8 @@ def main():
             "id": d["id"], "name": d["name"],
             "classification": d["classification"],
             "parent_id": d["parent_id"], "system": d["system"],
+            "system_id": d["system_id"],
+            "ingest_origin": d["ingest_origin"],
             "designations": json.loads(d["designations_json"]),
             "aliases": json.loads(d["aliases_json"]),
             "physical": {k: (json.loads(d[k]) if k.endswith("_json") else d[k])
@@ -65,6 +74,9 @@ def main():
             "orbital": {k: (json.loads(d[k]) if k.endswith("_json") else d[k])
                         for k in ORBITAL if d[k] is not None},
             "discovery": {k: d[k] for k in DISCOVERY if d[k] is not None},
+            "astrometry": {k: d[k] for k in ASTROMETRY if d[k] is not None},
+            "stellar": {k: d[k] for k in STELLAR if d[k] is not None},
+            "catalog_ids": json.loads(d["catalog_ids_json"]),
             "provenance": {"sources": json.loads(d["sources_json"]),
                            "conflicts": json.loads(d["conflicts_json"])},
             "render": {"color_hex": d["render_color_hex"],

@@ -1,5 +1,7 @@
 {
  "aliases": [],
+ "astrometry": {},
+ "catalog_ids": {},
  "classification": "regular-moon",
  "confidence_score": 0.8,
  "created_at": "2026-09-12T00:00:00Z",
@@ -16,6 +18,7 @@
   "discovery_year": 1966
  },
  "id": "epimetheus",
+ "ingest_origin": "batch",
  "name": "Epimetheus",
  "orbital": {
   "apoapsis_au": 0.0010219645459164947,
@@ -127,7 +130,9 @@
   "radius": 0.13,
   "rings": {}
  },
+ "stellar": {},
  "superseded_by": null,
  "system": "Saturnian System",
+ "system_id": null,
  "updated_at": "2026-09-12T00:00:00Z"
 }

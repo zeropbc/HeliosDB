@@ -125,7 +125,21 @@ def md_table(rows):
 def table(rows):
     if not rows:
         return "<p class=\"dim\">—</p>"
-    return markdown.markdown(md_table(rows), extensions=["tables"])
+    cells = [
+        "<table>",
+        "<thead><tr>",
+        "<th>Field</th>",
+        "<th>Value</th>",
+        "<th>Unit</th>",
+        "</tr></thead>",
+        "<tbody>",
+    ]
+    for k, v, u in rows:
+        cells.append(
+            f"<tr><td>{esc(k)}</td><td class=\"num\">{v}</td><td>{esc(u) if u else ''}</td></tr>"
+        )
+    cells.append("</tbody></table>")
+    return "\n".join(cells)
 
 
 def header(nav_extra=""):

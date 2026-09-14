@@ -77,6 +77,40 @@ CREATE TABLE IF NOT EXISTS bodies (
     FOREIGN KEY(superseded_by) REFERENCES bodies(id) ON DELETE SET NULL
 );
 
+CREATE TABLE IF NOT EXISTS systems (
+    id TEXT PRIMARY KEY,
+    name TEXT NOT NULL,
+    primary_star_id TEXT,
+    distance_pc REAL,
+    distance_pc_uncertainty REAL,
+    distance_ly REAL,
+    system_type TEXT,
+    component_count INTEGER,
+    is_complete BOOLEAN NOT NULL DEFAULT 0,
+    sources_json TEXT NOT NULL DEFAULT '[]',
+    FOREIGN KEY(primary_star_id) REFERENCES bodies(id) ON DELETE SET NULL
+);
+
+ALTER TABLE bodies ADD COLUMN system_id TEXT REFERENCES systems(id) ON DELETE SET NULL;
+ALTER TABLE bodies ADD COLUMN ingest_origin TEXT NOT NULL DEFAULT 'batch';
+ALTER TABLE bodies ADD COLUMN parallax_mas REAL;
+ALTER TABLE bodies ADD COLUMN parallax_uncertainty_mas REAL;
+ALTER TABLE bodies ADD COLUMN parallax_epoch REAL;
+ALTER TABLE bodies ADD COLUMN proper_motion_ra_mas_yr REAL;
+ALTER TABLE bodies ADD COLUMN proper_motion_dec_mas_yr REAL;
+ALTER TABLE bodies ADD COLUMN radial_velocity_km_s REAL;
+ALTER TABLE bodies ADD COLUMN radial_velocity_uncertainty_km_s REAL;
+ALTER TABLE bodies ADD COLUMN distance_pc REAL;
+ALTER TABLE bodies ADD COLUMN distance_pc_uncertainty REAL;
+ALTER TABLE bodies ADD COLUMN luminosity_log_solar REAL;
+ALTER TABLE bodies ADD COLUMN metallicity_fe_h REAL;
+ALTER TABLE bodies ADD COLUMN age_gyr REAL;
+ALTER TABLE bodies ADD COLUMN catalog_ids_json TEXT NOT NULL DEFAULT '{}';
+ALTER TABLE bodies ADD COLUMN discovery_status TEXT;
+ALTER TABLE bodies ADD COLUMN detection_method TEXT;
+ALTER TABLE bodies ADD COLUMN minimum_mass_earth REAL;
+ALTER TABLE bodies ADD COLUMN minimum_mass_uncertainty_earth REAL;
+
 CREATE TABLE IF NOT EXISTS id_redirects (
     old_id TEXT PRIMARY KEY,
     new_id TEXT NOT NULL,
@@ -120,8 +154,10 @@ END;
 CREATE INDEX IF NOT EXISTS idx_bodies_classification ON bodies(classification);
 CREATE INDEX IF NOT EXISTS idx_bodies_parent_id ON bodies(parent_id);
 CREATE INDEX IF NOT EXISTS idx_bodies_system ON bodies(system);
+CREATE INDEX IF NOT EXISTS idx_bodies_system_id ON bodies(system_id);
 CREATE INDEX IF NOT EXISTS idx_bodies_semi_major_axis_au ON bodies(semi_major_axis_au);
 CREATE INDEX IF NOT EXISTS idx_bodies_radius_km ON bodies(radius_km);
 CREATE INDEX IF NOT EXISTS idx_bodies_discovery_year ON bodies(discovery_year);
 CREATE INDEX IF NOT EXISTS idx_bodies_confidence ON bodies(confidence_score);
 CREATE INDEX IF NOT EXISTS idx_bodies_superseded ON bodies(superseded_by);
+CREATE INDEX IF NOT EXISTS idx_systems_distance ON systems(distance_pc);
