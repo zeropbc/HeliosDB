@@ -10,36 +10,46 @@
 @font-face { font-family: 'Terminal Grotesque Open'; src: url('fonts/terminal-grotesque-open/terminal-grotesque-webfont.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
 
 :root {
-  --zero-bg: #fbfbfb;
-  --zero-fg: #121212;
-  --zero-accent: #fa4e16;
+  /* Zero ANSI palette (Ghostty-inspired). Indices 2/4/10/12 share
+     Periwinkle Blue, 9/13 share Bright Orange, 6/14 share Muted Teal,
+     and 11/15 share Warm Cream — all intentional. */
+  --zero-black: #0a0a0a;         /* 0 */
+  --zero-red: #e06c75;           /* 1 Dusty Red */
+  --zero-blue: #6ba1e6;          /* 2/4/10/12 Periwinkle Blue */
+  --zero-gold: #e5c07b;          /* 3 Warm Gold */
+  --zero-orange: #f24911;        /* 5 Zero's Orange™ */
+  --zero-teal: #56b6c2;          /* 6/14 Muted Teal */
+  --zero-white: #eeeeee;         /* 7 Soft White */
+  --zero-gray: #606060;          /* 8 Gray */
+  --zero-bright-orange: #EE7948; /* 9/13 Bright Orange */
+  --zero-cream: #FFF7F1;         /* 11/15 Warm Cream */
 
-  --zero-font-sans: 'Source Sans 3', system-ui, sans-serif;
-  --zero-font-mono: 'Ioskeley Mono', ui-monospace, monospace;
-  --zero-font-wordmark: 'Terminal Grotesque Open', 'Source Sans 3', sans-serif;
+  --zero-bg: var(--zero-cream);
+  --zero-fg: var(--zero-black);
+  --zero-accent: var(--zero-orange);
 
   --bg: var(--zero-bg);
   --fg: var(--zero-fg);
   --accent: var(--zero-accent);
-  --fg-muted: #5b5b5b;
-  --border: #e4e2de;
-  --panel: #f3f1ec;
-  --warn: #b3541e;
-  --bad: #b3261e;
+  --fg-muted: var(--zero-gray);
+  --border: color-mix(in srgb, var(--zero-gray) 22%, var(--zero-cream));
+  --panel: color-mix(in srgb, var(--zero-gray) 8%, var(--zero-cream));
+  --warn: color-mix(in srgb, var(--zero-gold) 72%, var(--zero-black));
+  --bad: color-mix(in srgb, var(--zero-red) 78%, var(--zero-black));
   --font-sans: var(--zero-font-sans);
   --font-mono: var(--zero-font-mono);
   --font-wordmark: var(--zero-font-wordmark);
 }
 
 [data-theme="dark"] {
-  --zero-bg: #121212;
-  --zero-fg: #fbfbfb;
+  --zero-bg: var(--zero-black);
+  --zero-fg: var(--zero-cream);
 
-  --fg-muted: #a8a8a8;
-  --border: #2a2a2a;
-  --panel: #1a1a1a;
-  --warn: #d9a441;
-  --bad: #e06c75;
+  --fg-muted: color-mix(in srgb, var(--zero-white) 68%, var(--zero-black));
+  --border: color-mix(in srgb, var(--zero-gray) 55%, var(--zero-black));
+  --panel: color-mix(in srgb, var(--zero-gray) 22%, var(--zero-black));
+  --warn: var(--zero-gold);
+  --bad: var(--zero-red);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -51,7 +61,7 @@ body {
   padding-top: 3.5rem;
 }
 a { color: inherit; text-decoration: none; }
-::selection { background: var(--zero-accent); color: #fbfbfb; }
+::selection { background: var(--zero-accent); color: var(--zero-cream); }
 a:focus-visible, button:focus-visible, input:focus-visible {
   outline: 2px solid var(--zero-accent);
   outline-offset: 2px;
@@ -173,10 +183,11 @@ code { font-family: var(--font-mono); font-size: 0.85em; }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --zero-bg: #121212; --zero-fg: #fbfbfb;
-    --fg-muted: #a8a8a8;
-    --border: #2a2a2a; --panel: #1a1a1a;
-    --warn: #d9a441; --bad: #e06c75;
+    --zero-bg: var(--zero-black); --zero-fg: var(--zero-cream);
+    --fg-muted: color-mix(in srgb, var(--zero-white) 68%, var(--zero-black));
+    --border: color-mix(in srgb, var(--zero-gray) 55%, var(--zero-black));
+    --panel: color-mix(in srgb, var(--zero-gray) 22%, var(--zero-black));
+    --warn: var(--zero-gold); --bad: var(--zero-red);
   }
-  :root:not([data-theme="light"]) ::selection { background: var(--zero-accent); color: #fbfbfb; }
+  :root:not([data-theme="light"]) ::selection { background: var(--zero-accent); color: var(--zero-cream); }
 }
